@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6, user-scalable=yes">
+    <title>DevCom - Where code meets conversation. All visions forward.</title>
+    <!-- Font Awesome 6 (Free Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter + Space Grotesk for tech vibe -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Space Grotesk', sans-serif;
+            background-color: #01010c;
+            color: #edf2ff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* ----- STARFIELD ANIMATION (dynamic stars + twinkle) ----- */
+        #star-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(ellipse at 30% 40%, #070b1a, #020308);
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Glassmorphism & modern effects */
+        .glass-card {
+            background: rgba(12, 20, 35, 0.55);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            border: 1px solid rgba(72, 160, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 2rem;
+            background: rgba(5, 10, 25, 0.75);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(0, 210, 255, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.2s;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .menu-icon {
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #6bc8ff;
+            transition: transform 0.2s, color 0.2s;
+        }
+        .menu-icon:hover {
+            color: #3ea5ff;
+            transform: scale(1.05);
+        }
+
+        .logo h1 {
+            font-size: 1.9rem;
+            font-weight: 800;
+            background: linear-gradient(125deg, #ffffff, #7ad0ff, #a07eff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            margin-left: 2rem;
+        }
+        .nav-links a {
+            color: #e2ecff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.98rem;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .nav-links a i {
+            font-size: 0.9rem;
+        }
+        .nav-links a:hover {
+            color: #6bc8ff;
+            text-shadow: 0 0 5px rgba(107, 200, 255, 0.5);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #2f8eff, #b56eff);
+            transition: width 0.25s;
+        }
+        .nav-links a {
+            position: relative;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: rgba(20, 30, 55, 0.7);
+            border-radius: 60px;
+            padding: 0.4rem 0.9rem;
+            border: 1px solid rgba(58, 134, 255, 0.5);
+            transition: 0.2s;
+        }
+        .search-container:hover {
+            border-color: #4c9aff;
+            background: rgba(20, 30, 55, 0.9);
+        }
+        .search-container input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 0.85rem;
+            width: 150px;
+            padding: 0.2rem 0.3rem;
+        }
+        .search-container input::placeholder {
+            color: #9ab3df;
+        }
+        .search-container button {
+            background: none;
+            border: none;
+            color: #6bc8ff;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.1s;
+        }
+        .search-container button:hover {
+            transform: scale(1.1);
+            color: white;
+        }
+
+        .btn-start, .btn-login {
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+        .btn-start {
+            background: linear-gradient(105deg, #2b6ef0, #9a4dff);
+            color: white;
+            box-shadow: 0 2px 12px rgba(43, 110, 240, 0.4);
+        }
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(43, 110, 240, 0.6);
+            background: linear-gradient(105deg, #1f5cd6, #873ef5);
+        }
+        .btn-login {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid #3a86ff;
+            color: #d4ecff;
+        }
+        .btn-login:hover {
+            background: rgba(58, 134, 255, 0.2);
+            border-color: #88cbff;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* SIDEBAR (3 lines menu) */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 300px;
+            height: 100%;
+            background: rgba(6, 12, 24, 0.96);
+            backdrop-filter: blur(24px);
+            z-index: 1000;
+            transition: left 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            border-right: 1px solid rgba(0, 180, 255, 0.5);
+            box-shadow: 8px 0 32px rgba(0,0,0,0.6);
+        }
+        .sidebar.open {
+            left: 0;
+        }
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(106, 176, 255, 0.4);
+            padding-bottom: 1rem;
+        }
+        .sidebar-header span {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(120deg, #fff, #6bc8ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .close-sidebar {
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: #b6dcff;
+        }
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+        .sidebar-nav a {
+            color: #eef5ff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .sidebar-nav a i {
+            width: 28px;
+            color: #6bc8ff;
+        }
+        .sidebar-nav a:hover {
+            color: #8bcbff;
+            transform: translateX(8px);
+        }
+        .sidebar-search {
+            display: flex;
+            background: rgba(30, 45, 75, 0.8);
+            border-radius: 60px;
+            padding: 0.6rem 1rem;
+            margin-top: 0.5rem;
+            gap: 8px;
+        }
+        .sidebar-search input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+        }
+        .sidebar-search button {
+            background: none;
+            border: none;
+            color: #6bc8ff;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 999;
+            display: none;
+        }
+        .overlay.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        .hero-content {
+            max-width: 950px;
+            animation: fadeUp 0.9s ease-out;
+        }
+        .hero-content h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #7ad0ff, #c27eff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+        .hero-tagline {
+            font-size: 1.4rem;
+            color: #cde4ff;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            letter-spacing: -0.2px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .hero-btn {
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.25s;
+        }
+        .hero-btn-primary {
+            background: linear-gradient(95deg, #2b6ef0, #9a4dff);
+            color: white;
+            box-shadow: 0 0 14px rgba(43, 110, 240, 0.5);
+        }
+        .hero-btn-secondary {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid #6bc8ff;
+            color: #eef5ff;
+        }
+        .hero-btn-primary:hover, .hero-btn-secondary:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #cae5ff, #86bcff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+        .product-card {
+            background: rgba(18, 28, 45, 0.65);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            padding: 2rem 1.8rem;
+            width: 280px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(72, 187, 255, 0.25);
+        }
+        .product-card:hover {
+            transform: translateY(-12px);
+            border-color: #3a86ff;
+            box-shadow: 0 20px 30px -12px rgba(0, 150, 255, 0.3);
+        }
+        .product-card i {
+            font-size: 2.8rem;
+            color: #6bc8ff;
+            margin-bottom: 1.2rem;
+        }
+        .product-card h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1.5rem;
+        }
+        .overview-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .feature {
+            background: rgba(12, 22, 42, 0.7);
+            backdrop-filter: blur(6px);
+            padding: 2rem;
+            border-radius: 2rem;
+            width: 270px;
+            text-align: center;
+            transition: 0.2s;
+            border: 1px solid rgba(100, 150, 255, 0.2);
+        }
+        .feature i {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            color: #7bcbff;
+        }
+        .contact-form {
+            max-width: 620px;
+            margin: 0 auto;
+            background: rgba(10, 20, 38, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(70, 160, 255, 0.3);
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            background: rgba(25, 35, 60, 0.8);
+            border: 1px solid #3a6ea5;
+            border-radius: 1.2rem;
+            color: white;
+            font-size: 0.95rem;
+            outline: none;
+            transition: 0.2s;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #6bc8ff;
+            box-shadow: 0 0 6px #3a86ff;
+        }
+        .contact-form button {
+            background: linear-gradient(95deg, #2b6ef0, #9a4dff);
+            border: none;
+            padding: 0.85rem;
+            width: 100%;
+            border-radius: 2rem;
+            font-weight: bold;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.55);
+            border-top: 1px solid rgba(58, 134, 255, 0.3);
+            font-size: 0.85rem;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 950px) {
+            .nav-links { display: none; }
+            .navbar { padding: 0.7rem 1.2rem; }
+            .search-container input { width: 110px; }
+        }
+        @media (max-width: 680px) {
+            .hero-content h2 { font-size: 2.3rem; }
+            .hero-tagline { font-size: 1.1rem; }
+            .btn-start span, .btn-login span { display: none; }
+            .btn-start i, .btn-login i { margin: 0; }
+            .btn-start, .btn-login { padding: 0.5rem 0.9rem; }
+            .search-container input { width: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="star-canvas"></canvas>
+
+<div class="content-wrapper">
+    <!-- Main Navigation -->
+    <div class="navbar">
+        <div class="nav-left">
+            <div class="menu-icon" id="menuToggleBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="logo">
+                <h2>DevCom</h2>
+            </div>
+            <div class="nav-links">
+                <a href="#products"><i class="fas fa-cube"></i> Products</a>
+                <a href="#overview"><i class="fas fa-chart-line"></i> Overview</a>
+                <a href="mailto: mbilse003@gmail.com"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <div class="search-container">
+                <input type="text" id="globalSearchInput" placeholder="Search..." aria-label="Search">
+                <button id="globalSearchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <a href="#" id="loginBtnNav" class="btn-login"> <p>Log in</p></a>
+        </div>
+    </div>
+
+    <!-- Sidebar (3 lines menu) -->
+    <div class="sidebar" id="sidebarMenu">
+        <div class="sidebar-header">
+            <span>DevCom</span>
+            <i class="fas fa-times close-sidebar" id="closeSidebarBtn"></i>
+        </div>
+        <div class="sidebar-search">
+            <input type="text" id="sidebarSearchInput" placeholder="Search...">
+            <button id="sidebarSearchBtn"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="sidebar-nav">
+            <a href="#products"><i class="fas fa-cube"></i> Products</a>
+            <a href="#overview"><i class="fas fa-chart-line"></i> Overview</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            <a href="#" id="sidebarStartBtn"><i class="fas fa-rocket"></i> Get Started</a>
+            <a href="#" id="sidebarLoginBtn"><i class="fas fa-key"></i> Log in</a>
+        </div>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            
+            <h2 class="hero-tagline">Coding, Chatting, Solving problems on one platform.</h2>
+            <p class="hero-tagline">DevCom can let every devloper chat and build one application.</p>
+            <div class="hero-buttons">
+                <a href="#" class="hero-btn hero-btn-primary" id="heroStartBtn"><i class="fas fa-play"></i> Get Started</a>
+                <a href="mailto: mbilse003@gmail.com" class="hero-btn hero-btn-secondary" id="heroLoginBtn"><i class="fas fa-comment-dots"></i>Contact us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="section">
+        <h2 class="section-title"><i class="fas fa-microchip"></i> Products</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <i class="fas fa-code-branch"></i>
+                <h3>DevCore</h3>
+                <p>AI-powered pair programming & real-time collaboration.</p>
+            </div>
+            <div class="product-card">
+                <i class="fas fa-comments"></i>
+                <h3>ChatFlow</h3>
+                <p>Integrated voice & text channels for dev teams.</p>
+            </div>
+            <div class="product-card">
+                <i class="fas fa-brain"></i>
+                <h3>SolveAI</h3>
+                <p>Smart debugging & predictive problem solver.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section id="overview" class="section">
+        <h2 class="section-title"><i class="fas fa-chart-simple"></i> Platform Overview</h2>
+        <div class="overview-features">
+            <div class="feature">
+                <i class="fas fa-tachometer-alt"></i>
+                <h3>Lightning Fast</h3>
+                <p>Optimized cloud IDE with instant setup.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Enterprise Security</h3>
+                <p>End-to-end encryption & SSO ready.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-globe"></i>
+                <h3>Global Community</h3>
+                <p>Connect with 50k+ developers worldwide.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title"><i class="fas fa-address-card"></i> Contact Us</h2>
+        <div class="contact-form">
+            <div class="form-group">
+                <input type="text" id="contactName" placeholder="Full name" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input type="email" id="contactEmail" placeholder="Email address">
+            </div>
+            <div class="form-group">
+                <textarea rows="3" id="contactMsg" placeholder="Tell us about your project..."></textarea>
+            </div>
+            
+            <button id="submitContactBtn">Send Message <i class="fas fa-paper-plane"></i></button>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 DevCom — Where code meets conversation. All visions forward.</p>
+    </footer>
+</div>
+
+<script>
+    // ========== 1. STARFIELD ANIMATION (twinkling + dynamic stars) ==========
+    const canvas = document.getElementById('star-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let animationId;
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initStars();
+    }
+    
+    function initStars() {
+        stars = [];
+        const starCount = 300;
+        for (let i = 0; i < starCount; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2.2 + 0.8,
+                alpha: Math.random() * 0.6 + 0.3,
+                speed: 0.005 + Math.random() * 0.015,
+                phase: Math.random() * Math.PI * 2
+            });
+        }
+    }
+    
+    function drawStars() {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // deep space gradient
+        const grad = ctx.createLinearGradient(0, 0, canvas.width*0.8, canvas.height);
+        grad.addColorStop(0, '#02030c');
+        grad.addColorStop(1, '#050b18');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        const time = Date.now() * 0.002;
+        for (let s of stars) {
+            // twinkle effect
+            const twinkle = Math.sin(time * s.speed * 2 + s.phase) * 0.25 + 0.6;
+            let alphaVal = Math.min(0.9, Math.max(0.2, s.alpha * twinkle));
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 240, 210, ${alphaVal})`;
+            ctx.fill();
+            // occasional larger glow
+            if (s.radius > 1.5 && twinkle > 0.7) {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius + 0.8, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(100, 180, 255, 0.2)`;
+                ctx.fill();
+            }
+        }
+        // floating nebula effect
+        ctx.fillStyle = 'rgba(30, 50, 90, 0.03)';
+        for (let i=0;i<50;i++) {
+            ctx.beginPath();
+            ctx.arc((Math.sin(time*0.1+i)*200 + canvas.width/2)%canvas.width, (Math.cos(time*0.07+i)*120 + canvas.height/3)%canvas.height, 40, 0, Math.PI*2);
+            ctx.fill();
+        }
+        animationId = requestAnimationFrame(drawStars);
+    }
+    
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+    });
+    resizeCanvas();
+    drawStars();
+    
+    // ========== 2. SIDEBAR TOGGLE & OVERLAY ==========
+    const menuBtn = document.getElementById('menuToggleBtn');
+    const sidebar = document.getElementById('sidebarMenu');
+    const overlay = document.getElementById('overlay');
+    const closeSidebar = document.getElementById('closeSidebarBtn');
+    
+    function openSidebar() {
+        sidebar.classList.add('open');
+        overlay.classList.add('active');
+    }
+    function closeSidebarFunc() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+    }
+    menuBtn.addEventListener('click', openSidebar);
+    closeSidebar.addEventListener('click', closeSidebarFunc);
+    overlay.addEventListener('click', closeSidebarFunc);
+    
+    // Close sidebar when clicking any link inside sidebar-nav (optional)
+    document.querySelectorAll('.sidebar-nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            closeSidebarFunc();
+        });
+    });
+    
+    // ========== 3. SEARCH FUNCTIONALITY (demo alert) ==========
+    function handleSearch(query, source = 'global') {
+        if (!query.trim()) {
+            alert(`🔍 Please enter a search term.`);
+            return;
+        }
+        alert(`🔎 DevCom Search (${source}):\n"${query}"\n⚡ Demo: showing results for "${query}" — full search integration coming soon.`);
+    }
+    const globalSearchInput = document.getElementById('globalSearchInput');
+    const globalSearchBtn = document.getElementById('globalSearchBtn');
+    globalSearchBtn.addEventListener('click', () => handleSearch(globalSearchInput.value, 'Global'));
+    globalSearchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSearch(globalSearchInput.value, 'Global');
+    });
+    const sidebarSearchInput = document.getElementById('sidebarSearchInput');
+    const sidebarSearchBtn = document.getElementById('sidebarSearchBtn');
+    sidebarSearchBtn.addEventListener('click', () => handleSearch(sidebarSearchInput.value, 'Sidebar'));
+    sidebarSearchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSearch(sidebarSearchInput.value, 'Sidebar');
+    });
+    
+    // ========== 4. BUTTONS WITH HREF + DEMO REDIRECT INFO (links do not break) ==========
+    function demoRedirect(message) {
+        alert(`✨ ${message}\n(Demo — full authentication will be available soon.)`);
+    }
+    // Get Started buttons (all with href="#")
+    const startBtns = ['startBtnNav', 'heroStartBtn'];
+    startBtns.forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href="./signup.html";
+            });
+        }
+    });
+    // Login buttons
+    const loginBtns = ['loginBtnNav', 'sidebarLoginBtn'];
+    loginBtns.forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.location.href="./login.html";
+            });
+        }
+    });
+    
+    // ========== 5. CONTACT FORM SUBMIT ==========
+    const contactSubmit = document.getElementById('submitContactBtn');
+    contactSubmit.addEventListener('click', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('contactName').value.trim();
+        const email = document.getElementById('contactEmail').value.trim();
+        const msg = document.getElementById('contactMsg').value.trim();
+        if (!name || !email || !msg) {
+            alert('📬 Please fill in all fields before sending.');
+            return;
+        }
+        if (!email.includes('@') || !email.includes('.')) {
+            alert('⚠️ Please enter a valid email address.');
+            return;
+        }
+        alert(`✅ Thanks ${name}! Your message has been received. The DevCom team will reach out soon.`);
+        document.getElementById('contactName').value = '';
+        document.getElementById('contactEmail').value = '';
+        document.getElementById('contactMsg').value = '';
+    });
+    
+    // ========== 6. SMOOTH SCROLL FOR ANCHOR LINKS (products, overview, contact) ==========
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === "#" || targetId === "#0" || targetId === "") return;
+            const targetElem = document.querySelector(targetId);
+            if (targetElem) {
+                e.preventDefault();
+                targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    
+    // Additional micro interaction for product cards
+    console.log("DevCom ready — English interface, starfield, all interactive features loaded.");
+</script>
+</body>
+</html>
