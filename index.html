@@ -629,72 +629,7 @@
 </div>
 
 <script>
-    
-// 获取 URL 参数
-function getUrlParams() {
-    const params = new URLSearchParams(window.location.search);
-    return {
-        username: params.get('username'),
-        password: params.get('password'),
-        clear: params.get('clear')
-    };
-}
-
-// 存储登录信息到 localStorage（保持与 dashboard 一致的键名格式）
-function storeLoginParams(username, password) {
-    if (username && password) {
-        localStorage.setItem('devcom_login_username', username);
-        localStorage.setItem('devcom_login_password', password);
-        localStorage.setItem('devcom_login_timestamp', new Date().toISOString());
-        return true;
-    }
-    return false;
-}
-
-// 清除 localStorage 中的登录信息
-function clearLoginParams() {
-    localStorage.removeItem('devcom_login_username');
-    localStorage.removeItem('devcom_login_password');
-    localStorage.removeItem('devcom_login_timestamp');
-}
-
-// 重定向到 dashboard 并保留参数原格式
-function redirectToDashboard(username, password) {
-    const dashboardUrl = `dashboard.html?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`;
-    window.location.href = dashboardUrl;
-}
-
-// 主逻辑：页面加载时执行
-(function handlePageEntry() {
-    const { username, password, clear } = getUrlParams();
-    
-    // 1. 处理清除模式（来自 dashboard 登出后的回调）
-    if (clear === 'true' || clear === '1') {
-        clearLoginParams();
-        // 清除后跳转到 login 页面
-        window.location.href = 'login.html';
-        return;
-    }
-    
-    // 2. 如果有 URL 参数（来自 login 跳转），保存并跳转到 dashboard
-    if (username && password) {
-        storeLoginParams(username, password);
-        // 清理 URL 参数后跳转，保持原格式传递
-        redirectToDashboard(username, password);
-        return;
-    }
-    
-    // 3. 检查 localStorage 中是否有有效登录信息，若有则自动跳转到 dashboard
-    const storedUsername = localStorage.getItem('devcom_login_username');
-    const storedPassword = localStorage.getItem('devcom_login_password');
-    if (storedUsername && storedPassword) {
-        redirectToDashboard(storedUsername, storedPassword);
-        return;
-    }
-    
-    // 4. 若无任何登录信息，正常显示首页内容（原有页面逻辑继续执行）
-    console.log("未检测到登录信息，显示首页");
-})();
+  
     // ========== 1. STARFIELD ANIMATION (twinkling + dynamic stars) ==========
     const canvas = document.getElementById('star-canvas');
     const ctx = canvas.getContext('2d');
