@@ -1,4 +1,6 @@
-![Icon](./favicon.svg)
+![Icon](./itd.svg)
 # DevCom
 一个可以共同协作的平台。
+在一个平台里，创作、分享、聊天。
+
 
