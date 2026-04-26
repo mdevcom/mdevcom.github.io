@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" width="400" height="120">
+  <defs>
+    <!-- 渐变背景 -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0f1f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1f3a;stop-opacity:1" />
+    </linearGradient>
+    <!-- 科技蓝渐变 -->
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2b6ef0" />
+      <stop offset="100%" style="stop-color:#6bc8ff" />
+    </linearGradient>
+    <!-- 紫色渐变 -->
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9a4dff" />
+      <stop offset="100%" style="stop-color:#c27eff" />
+    </linearGradient>
+    <!-- 发光效果 -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- 背景圆角矩形 -->
+  <rect x="0" y="0" width="400" height="120" rx="24" ry="24" fill="url(#bgGrad)" stroke="#2b6ef0" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <!-- 图标区：代码尖括号 + 聊天气泡 + 解决符号 (齿轮/节点) -->
+  <g transform="translate(35, 60)" filter="url(#glow)">
+    <!-- 外层光环 -->
+    <circle cx="0" cy="0" r="28" fill="none" stroke="#6bc8ff" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="4 4"/>
+    
+    <!-- 左侧尖括号 <  -->
+    <path d="M-12,-12 L-22,0 L-12,12" fill="none" stroke="url(#blueGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- 右侧尖括号 >  -->
+    <path d="M12,-12 L22,0 L12,12" fill="none" stroke="url(#blueGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- 中间的聊天气泡（抽象） -->
+    <circle cx="0" cy="-2" r="6" fill="url(#purpleGrad)" opacity="0.9"/>
+    <path d="M-3,5 L0,10 L3,5" fill="url(#purpleGrad)" opacity="0.9"/>
+    
+    <!-- 顶部节点连接（代表解决问题） -->
+    <circle cx="0" cy="-18" r="2.5" fill="#6bc8ff"/>
+    <line x1="0" y1="-15" x2="0" y2="-10" stroke="#6bc8ff" stroke-width="1.5"/>
+  </g>
+
+  <!-- 文字部分 DevCom -->
+  <g transform="translate(80, 68)">
+    <!-- D -->
+    <text x="0" y="0" font-family="'Segoe UI', 'Inter', system-ui, sans-serif" font-weight="800" font-size="36" fill="url(#blueGrad)" filter="url(#glow)">D</text>
+    <!-- e -->
+    <text x="32" y="0" font-family="'Segoe UI', 'Inter', system-ui, sans-serif" font-weight="700" font-size="32" fill="#e2ecff">e</text>
+    <!-- v -->
+    <text x="58" y="0" font-family="'Segoe UI', 'Inter', system-ui, sans-serif" font-weight="700" font-size="32" fill="#e2ecff">v</text>
+    <!-- C 高亮 -->
+    <text x="85" y="0" font-family="'Segoe UI', 'Inter', system-ui, sans-serif" font-weight="800" font-size="36" fill="url(#purpleGrad)" filter="url(#glow)">C</text>
+    <!-- o -->
+    <text x="117" y="0" font-family="'Segoe UI', 'Inter', system-ui, sans-serif" font-weight="700" font-size="32" fill="#e2ecff">o</text>
+    <!-- m -->
+    <text x="140" y="0" font-family="'Segoe UI', 'Inter', system-ui, sans-serif" font-weight="700" font-size="32" fill="#e2ecff">m</text>
+  </g>
+
+  <!-- 副标语 -->
+  <text x="80" y="98" font-family="'Segoe UI', 'Inter', system-ui, sans-serif" font-weight="500" font-size="11" fill="#8b9dc3" letter-spacing="1.5">CODE · CHAT · SOLVE</text>
+
+  <!-- 装饰性小元素：代码括号点缀 -->
+  <g opacity="0.4">
+    <text x="310" y="40" font-family="monospace" font-size="14" fill="#6bc8ff">{ &lt;/&gt; }</text>
+    <circle cx="345" cy="95" r="3" fill="#9a4dff" opacity="0.6"/>
+    <circle cx="360" cy="85" r="2" fill="#2b6ef0" opacity="0.5"/>
+    <line x1="350" y1="100" x2="370" y2="100" stroke="#6bc8ff" stroke-width="1" stroke-opacity="0.3"/>
+  </g>
+</svg>
