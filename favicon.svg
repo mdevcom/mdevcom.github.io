@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- 渐变背景 -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0f1f" />
+      <stop offset="100%" style="stop-color:#1a1f3a" />
+    </linearGradient>
+    <!-- 蓝色渐变 -->
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2b6ef0" />
+      <stop offset="100%" style="stop-color:#6bc8ff" />
+    </linearGradient>
+    <!-- 紫色渐变 -->
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9a4dff" />
+      <stop offset="100%" style="stop-color:#c27eff" />
+    </linearGradient>
+  </defs>
+
+  <!-- 圆角方形背景（类似应用图标） -->
+  <rect x="2" y="2" width="60" height="60" rx="14" ry="14" fill="url(#bgGrad)" stroke="#2b6ef0" stroke-width="1.2" stroke-opacity="0.5"/>
+
+  <!-- 图标主体：< 和 > 之间夹着聊天气泡，顶部带解决符号 -->
+  <g transform="translate(32, 32)">
+    <!-- 左侧尖括号 < -->
+    <path d="M-14,-12 L-22,0 L-14,12" fill="none" stroke="url(#blueGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- 右侧尖括号 > -->
+    <path d="M14,-12 L22,0 L14,12" fill="none" stroke="url(#blueGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- 聊天气泡（抽象） -->
+    <circle cx="0" cy="-2" r="5" fill="url(#purpleGrad)"/>
+    <path d="M-2.5,3 L0,7 L2.5,3" fill="url(#purpleGrad)"/>
+    
+    <!-- 顶部解决节点（小齿轮/星星） -->
+    <circle cx="0" cy="-16" r="2.5" fill="#6bc8ff"/>
+    <!-- 四个小点代表“解决” -->
+    <circle cx="0" cy="-21" r="1.2" fill="#6bc8ff"/>
+    <circle cx="-4" cy="-18" r="1" fill="#6bc8ff" opacity="0.7"/>
+    <circle cx="4" cy="-18" r="1" fill="#6bc8ff" opacity="0.7"/>
+  </g>
+</svg>
