@@ -74,4 +74,18 @@ service cloud.firestore {
 }
 
 ```
-接下来，注册Cloudinary就完成了。
+接下来，注册Cloudinary
+1. 登录后，进入 Settings → Upload → Upload presets，点击 “Add Upload Preset”。
+2. 将 Signing Mode 设置为 Unsigned，并填写一个你记得住的 Preset name，之后在代码中会用到。
+3. 保存预设。
+
+在你的 dashboard.html 中，找到 <script type="module"> 的起始位置，紧接着替换下面的上传函数。请务必把 YOUR_CLOUD_NAME 和 YOUR_UPLOAD_PRESET 换成你自己的信息。
+
+```javascript
+// ==================== Cloudinary 配置 ====================
+const CLOUDINARY_CLOUD_NAME = 'YOUR_CLOUD_NAME';      // 你的 Cloud Name
+const UPLOAD_PRESET = 'YOUR_UPLOAD_PRESET';           // 刚刚创建的 Upload Preset
+
+```
+
+就完成了。
