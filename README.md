@@ -74,4 +74,4 @@ service cloud.firestore {
 }
 
 ```
-接下来就完成了。
+接下来，注册Cloudinary就完成了。
