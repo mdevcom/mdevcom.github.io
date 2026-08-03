@@ -28,6 +28,21 @@ DevCom 简称DC，是Mbilse LLC与DevCom Platform Organization(DCPO)开发的基
 - [x] 聊天(firebase)
 - [x] 发文件(cloudinary)
 - [ ] 保留/全局更新
+- [x] Kida机制
+- [x] 下载权控制
+- [x] ReKida机制
+- [ ] 多文件的动态Kida
+- [ ] Kida Action流
+- [x] 发帖子
+- [x] 发帖子的评论
+- [x] 发帖子的评论的回复
+- [x] 删除评论
+- [x] 删除帖子
+- [x] 删除回复
+- [x] Markdown渲染
+- [ ] 用户中心
+- [x] 点赞帖子，评论，回复
+- [ ] CreatingEvent机制
 
 ## 本地部署：
 
