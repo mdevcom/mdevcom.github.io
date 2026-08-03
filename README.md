@@ -7,7 +7,7 @@
 
 DevCom 简称DC，是Mbilse LLC与DevCom Platform Organization(DCPO)开发的基于Google Firebase数据库及Cloudinary云平台的聊天式开发者互动平台，采用Apache License 2.0 协议制作。
 
-核心亮点：
+## 核心亮点：
 
 - 1. 《美观》的UI
 - 2. 快速的聊天服务
@@ -15,8 +15,19 @@ DevCom 简称DC，是Mbilse LLC与DevCom Platform Organization(DCPO)开发的基
 - 4. 《神秘》的Kida(基达)动态文件数据流机制
 - 5. 原生的Markdown渲染支持
 - 6. 原生的语法高亮优化
+- 7. 优雅的评论菜单
+- 8. CreatingEvent记录单(灰度测试)
 
+## 任务列表
 
+- [x] 美丽的Index Page
+- [x] 用户注册
+- [x] 用户登录
+- [x] Dashboard页面
+- [x] 暗色模式
+- [x] 聊天(firebase)
+- [x] 发文件(cloudinary)
+- [ ] 保留/全局更新
 
 ## 本地部署：
 
