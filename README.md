@@ -2,6 +2,11 @@
 # DevCom
 一个可以共同协作的平台。
 在一个平台里，创作、分享、聊天。
+
+## 前言
+
+DevCom 简称DC，是Mbilse LLC与DevCom Platform Organization(DCPO)开发的基于Google Firebase数据库及Cloudinary云平台的聊天式开发者互动平台。
+
 ## 本地部署：
 
 本地部署外，你也可以用[官网](https://mdevcom.github.io/) 的默认库，登录后直接能用。
