@@ -43,6 +43,11 @@ DevCom 简称DC，是Mbilse LLC与DevCom Platform Organization(DCPO)开发的基
 - [ ] 用户中心
 - [x] 点赞帖子，评论，回复
 - [ ] CreatingEvent机制
+- [ ] 桌面发行版
+- [ ] Clockinary 流采集技术
+- [x] 用户点评
+- [ ] 用户设置
+- [ ] 智能登录注册验证
 
 ## 本地部署：
 
