@@ -31,7 +31,7 @@ DevCom 简称DC，是Mbilse LLC与DevCom Platform Organization(DCPO)开发的基
 - [x] Kida机制
 - [x] 下载权控制
 - [x] ReKida机制
-- [ ] 多文件的动态Kida
+- [x] 多文件的动态Kida
 - [ ] Kida Action流
 - [x] 发帖子
 - [x] 发帖子的评论
