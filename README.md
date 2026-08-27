@@ -51,6 +51,11 @@ DevCom 简称DC，是Mbilse LLC与DevCom Platform Organization(DCPO)开发的基
 - [x] 关注
 - [x] 群聊
 - [x] 单聊
+- [x] 撤回消息
+- [x] 图标包改为Font Awesome 
+- [x] 群设置
+- [x] 转发消息
+- [x] Profile 编辑
 
 ## 本地部署：
 
