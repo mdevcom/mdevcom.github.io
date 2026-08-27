@@ -57,6 +57,19 @@ DevCom 简称DC，是Mbilse LLC与DevCom Platform Organization(DCPO)开发的基
 - [x] 转发消息
 - [x] Profile 编辑
 
+## Creatings Event机制
+
+一个类似日历待办事项的工具，发布帖子的示例为：
+
+```
+
+/_CtEvts: 待办
+
+```
+
+设置完成可标记已完成/未完成。
+
+
 ## 本地部署：
 
 本地部署外，你也可以用[官网](https://mdevcom.github.io/) 的默认库，登录后直接能用。
