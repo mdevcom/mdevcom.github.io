@@ -1,6 +1,6 @@
 # DevCom 用户使用指南
 
-> 基于 DevCom Dashboard v1.0 编写 | 适用于 GitHub README
+> 基于 Mbilse DevCom 编写 
 
 ---
 
@@ -42,7 +42,7 @@
 - 支持 **Markdown** 语法（标题、列表、代码块、表格等）
 - 点击「Files」按钮可上传多个附件（图片、文档等）
 - 点击「Send」发布，实时显示在 Feed 流中
-- CreatingEvents ：行动版的内容动态，输入`:ctevts/ 内容` 标记开/关
+- CreatingEvents ：行动版的内容动态，输入`/_CtEvts: 待办内容` 标记开/关
 
 **帖子互动**
 - 👍 点赞 / 取消点赞
