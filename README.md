@@ -12,6 +12,8 @@ DevCom 简称DC，是Mbilse LLC与DevCom Platform Organization(DCPO)开发的基
 [用户协议](./termsofservice.txt)
 
 [隐私政策](./privacy.txt)
+
+[开放源代码许可](./openlic.txt)
 ## 核心亮点：
 
 - 1. 《美观》的UI
